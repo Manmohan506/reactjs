@@ -1,0 +1,61 @@
+version: "3.9"
+services:
+
+
+  frontend:
+    image: frontend/frontend
+    container_name: frontend
+    stdin_open: true
+    ports:
+      - "3000:3000"
+
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+
+    volumes:
+      - /app/frontend/node_modules
+      - /root/reactjs:/app/frontend
+    depends_on:
+      - backend
+    links:
+      - backend
+    #command: npm start
+
+  backend:
+    image: backend/backend
+    container_name: backend
+    ports:
+      - "8080:8080"
+
+    volumes:
+      - /app/backend/node_modules
+      - /root/backend:/app/backend
+    depends_on:
+      - postgres
+    environment:
+      database: loizenaidb
+      username: postgres
+      password: 123
+      host: postgres
+
+
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    ports:
+      - "5432:5432"
+
+    environment:
+      POSTGRES_PASSWORD: 123
+      POSTGRES_USER: postgres
+      POSTGRES_DB: loizenaidb
+
+  nginx:
+    depends_on:
+      - backend
+      - frontend
+    restart: always
+    image: frontend/nginx-file
+    ports:
+      - "3050:80"
