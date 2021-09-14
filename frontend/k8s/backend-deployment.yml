@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: backend
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       component: backend
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: 8978443990/backend
+          image: 8978443990/backend:latest
           ports:
             - containerPort: 8080
           env:
@@ -26,8 +26,8 @@ spec:
               value: "5432"
             - name: PGDATABASE
               value: loizenaidb
-            - name: PASSWORD
+            - name: PGPASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: password
-                  key: PASSWORD
+                  name: pgpassword
+                  key: PGPASSWORD
