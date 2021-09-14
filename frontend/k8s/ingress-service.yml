@@ -14,7 +14,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: frontend
+                name: react
                 port:
                   number: 3000
           - path: /api/?(.*)
@@ -23,4 +23,4 @@ spec:
               service:
                 name: backend
                 port:
-                  number: 5000
+                  number: 8080
