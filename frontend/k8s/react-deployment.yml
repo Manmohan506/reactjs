@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: react
+  name: react-deployment
   labels:
     app: react
 spec:
@@ -16,9 +16,10 @@ spec:
     spec:
       containers:
         - name: react
-          image: 8978443990/frontend
+          image: 8978443990/frontend:latest
           imagePullPolicy: Always
           stdin: true
           ports:
             - containerPort: 3000
       restartPolicy: Always   
+      
