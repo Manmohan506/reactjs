@@ -1,6 +1,8 @@
 FROM         node:lts-alpine
-COPY         . /frontend
-WORKDIR      /frontend
+RUN          mkdir  -p /app/frontend
+WORKDIR      /app/frontend
+COPY         .  /app/frontend
 RUN          npm install
 RUN          npm run build
-CMD          [ "npm", "start"]
+COPY         . /app/frontend
+CMD          ["npm" , "start"]
